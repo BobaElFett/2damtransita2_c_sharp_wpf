@@ -93,7 +93,7 @@ namespace WpfAppLogin
                         using (StreamReader objReader = new StreamReader(strReader))
                         {
                             string responseBody = objReader.ReadToEnd();
-                            //MessageBox.Show(responseBody);
+                            //MessageBox.Show(responseBody.ToString());
                             return responseBody;
                         }
                     }
@@ -141,8 +141,6 @@ namespace WpfAppLogin
 
         public static void PutItems(string url, string cadenajson, int id)
         {
-            var re = UrlHost + url + id;
-            MessageBox.Show(re);
             var request = (HttpWebRequest)WebRequest.Create(UrlHost + url + id);
             request.Method = "PUT";
             request.ContentType = "application/json";

@@ -15,14 +15,13 @@ using System.Windows.Shapes;
 
 namespace WpfAppLogin
 {
-    /// <summary>
-    /// Lógica de interacción para HomeWindow.xaml
-    /// </summary>
     public partial class HomeWindow : Window
     {
         public HomeWindow()
         {
             InitializeComponent();
+            ContentHome.Content = new Incidencias();
+
         }
 
         private void Border_MouseDown(object sender, MouseButtonEventArgs e)
@@ -66,18 +65,12 @@ namespace WpfAppLogin
 
         private void CloseButton_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
-
-            /*foreach (Window window in Application.Current.Windows)
-            {
-                window.Close();
-            }*/
-
             Application.Current.Shutdown();
         }
 
         private void Clientes_Click(object sender, RoutedEventArgs e)
         {
-            ContentHome.Content = new Incidencias();
+            ContentHome.Content = new Clientes();
         }
         
         private void Incidencias_Click(object sender, RoutedEventArgs e)

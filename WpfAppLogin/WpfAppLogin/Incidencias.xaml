@@ -32,73 +32,17 @@
           CanUserAddRows="False" IsReadOnly="True" SelectionMode="Single" Margin="10,50,10,10" SelectionUnit="FullRow"
           BorderBrush="#323232" BorderThickness="2" MouseDoubleClick="ModificarIncidencia_Click">
                     <DataGrid.Columns>
-                        <DataGridTextColumn Header="ID" Binding="{Binding id_incidencia}" />
+                        <DataGridTextColumn Header="ID" Binding="{Binding id}" />
+                        <DataGridTextColumn Header="Estado" Binding="{Binding estadoIncidencia}" />
                         <DataGridTextColumn Header="Título" Binding="{Binding titulo}" />
                         <DataGridTextColumn Header="Descripción" Binding="{Binding descripcion}" />
-                        <DataGridTextColumn Header="Estado" Binding="{Binding estadoIncidencia}" />
                         <DataGridTextColumn Header="Fecha y Hora" Binding="{Binding fechahora}" />
-                        <DataGridTextColumn Header="Duración" Binding="{Binding duracion}" />
+                        <DataGridCheckBoxColumn Header="Accesibilidad" Binding="{Binding accesibilidad}" />
+                        <DataGridTextColumn Header="Longitud" Binding="{Binding longitud}"/>
+                        <DataGridTextColumn Header="Latitud" Binding="{Binding latitud}"/>
                         <DataGridTextColumn Header="ID Cliente" Binding="{Binding id_cliente}" />
-                        <DataGridTextColumn Header="ID Punto" Binding="{Binding id_punto}" />
                     </DataGrid.Columns>
                 </DataGrid>
-
-
-                <!--
-                <ScrollViewer VerticalAlignment="Stretch" Margin="10,50,10,10">
-                    <DataGrid x:Name="dataGrid" AutoGenerateColumns="False" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
-              CanUserAddRows="False" IsReadOnly="True" SelectionMode="Single" Margin="0,0,0,0" SelectionUnit="FullRow"
-              BorderBrush="#323232" BorderThickness="2" MouseDoubleClick="ModificarIncidencia_Click">
-                        <DataGrid.Columns>
-                            <DataGridTextColumn Header="ID" Binding="{Binding id_incidencia}" />
-                            <DataGridTextColumn Header="Título" Binding="{Binding titulo}" />
-                            <DataGridTextColumn Header="Descripción" Binding="{Binding descripcion}" />
-                            <DataGridTextColumn Header="Estado" Binding="{Binding estadoIncidencia}" />
-                            <DataGridTextColumn Header="Fecha y Hora" Binding="{Binding fechahora}" />
-                            <DataGridTextColumn Header="Duración" Binding="{Binding duracion}" />
-                            <DataGridTextColumn Header="ID Cliente" Binding="{Binding id_cliente}" />
-                            <DataGridTextColumn Header="ID Punto" Binding="{Binding id_punto}" />
-                        </DataGrid.Columns>
-                    </DataGrid>
-                </ScrollViewer>
-                
-                <StackPanel Margin="10 50 10 10" VerticalAlignment="Top">
-                    <ScrollViewer MaxWidth="800" MaxHeight="400">
-                        <DataGrid x:Name="dataGrid" AutoGenerateColumns="False" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
-                                  CanUserAddRows="False" IsReadOnly="True" SelectionMode="Single" Margin="0,0,0,0" SelectionUnit="FullRow"
-                                  BorderBrush="#323232" BorderThickness="2" MouseDoubleClick="ModificarIncidencia_Click">
-                            <DataGrid.Columns>
-                                <DataGridTextColumn Header="ID" Binding="{Binding id_incidencia}" />
-                                <DataGridTextColumn Header="Título" Binding="{Binding titulo}" />
-                                <DataGridTextColumn Header="Descripción" Binding="{Binding descripcion}" />
-                                <DataGridTextColumn Header="Estado" Binding="{Binding estadoIncidencia}" />
-                                <DataGridTextColumn Header="Fecha y Hora" Binding="{Binding fechahora}" />
-                                <DataGridTextColumn Header="Duración" Binding="{Binding duracion}" />
-                                <DataGridTextColumn Header="ID Cliente" Binding="{Binding id_cliente}" />
-                                <DataGridTextColumn Header="ID Punto" Binding="{Binding id_punto}" />
-                            </DataGrid.Columns>
-                        </DataGrid>
-                    </ScrollViewer>
-                </StackPanel>
-
-                
-                <StackPanel Margin="0 0 0 0" VerticalAlignment="Top">
-                    <DataGrid x:Name="dataGrid" AutoGenerateColumns="False" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
-                              CanUserAddRows="False" IsReadOnly="True" SelectionMode="Single" Margin="10,50,10,10" SelectionUnit="FullRow"
-                              BorderBrush="#323232" BorderThickness="2" MouseDoubleClick="ModificarIncidencia_Click">
-                        <DataGrid.Columns>
-                            <DataGridTextColumn Header="ID" Binding="{Binding id_incidencia}" />
-                            <DataGridTextColumn Header="Título" Binding="{Binding titulo}" />
-                            <DataGridTextColumn Header="Descripción" Binding="{Binding descripcion}" />
-                            <DataGridTextColumn Header="Estado" Binding="{Binding estadoIncidencia}" />
-                            <DataGridTextColumn Header="Fecha y Hora" Binding="{Binding fechahora}" />
-                            <DataGridTextColumn Header="Duración" Binding="{Binding duracion}" />
-                            <DataGridTextColumn Header="ID Cliente" Binding="{Binding id_cliente}" />
-                            <DataGridTextColumn Header="ID Punto" Binding="{Binding id_punto}" />
-                        </DataGrid.Columns>
-                    </DataGrid>
-                </StackPanel>
-                -->
             </Grid>
         </Border>
     </Grid>

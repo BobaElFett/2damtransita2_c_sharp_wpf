@@ -76,14 +76,26 @@
     <Compile Include="AñadirIncidencia.xaml.cs">
       <DependentUpon>AñadirIncidencia.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Base64.cs" />
+    <Compile Include="Clientes.xaml.cs">
+      <DependentUpon>Clientes.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Mapa.xaml.cs">
       <DependentUpon>Mapa.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ModificarCliente.xaml.cs">
+      <DependentUpon>ModificarCliente.xaml</DependentUpon>
     </Compile>
     <Compile Include="ModificarIncidencia.xaml.cs">
       <DependentUpon>ModificarIncidencia.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Validar.xaml.cs">
+      <DependentUpon>Validar.xaml</DependentUpon>
+    </Compile>
     <Page Include="AñadirIncidencia.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Clientes.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -122,11 +134,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="ModificarCliente.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Settings.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="ModificarIncidencia.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Validar.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

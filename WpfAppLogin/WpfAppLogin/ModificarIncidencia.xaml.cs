@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,9 +16,6 @@ using static WpfAppLogin.Incidencias;
 
 namespace WpfAppLogin
 {
-    /// <summary>
-    /// Lógica de interacción para Window1.xaml
-    /// </summary>
     public partial class ModificarIncidencia : Window
     {
         string urlIncidencia;
@@ -27,7 +25,8 @@ namespace WpfAppLogin
             if (incidencia == null)
             {
                 MessageBox.Show("Incidencia is null!");
-            } else
+            }
+            else
             {
                 urlIncidencia = url;
 
@@ -35,29 +34,48 @@ namespace WpfAppLogin
 
                 incidenciaM = new Incidencia
                 {
-                    id_incidencia = incidencia.id_incidencia,
+                    id = incidencia.id,
                     titulo = incidencia.titulo,
                     descripcion = incidencia.descripcion,
-                    estadoIncidencia = incidencia.estadoIncidencia,
-                    duracion = incidencia.duracion,
                     fechahora = incidencia.fechahora,
-                    id_punto = incidencia.id_punto
+                    accesibilidad = incidencia.accesibilidad,
+                    estadoIncidencia = incidencia.estadoIncidencia,
+                    foto = incidencia.foto,
+                    latitud = incidencia.latitud,
+                    longitud = incidencia.longitud,
+                    id_cliente = incidencia.id_cliente
                 };
 
                 if (incidenciaM != null)
                 {
-                    TituloTextBox.Text = incidenciaM.titulo.ToString();
-                    DescripcionTextBox.Text = incidenciaM.descripcion.ToString();
-                    EstadoTextBox.Text = incidenciaM.estadoIncidencia.ToString();
-                    DuracionTextBox.Text = incidenciaM.duracion.ToString();
-                    FechaDatePicker.Text = incidenciaM.fechahora.ToString();
-                    PuntoTextBox.Text = incidenciaM.id_punto.ToString();
+                    TituloTextBox.Text = incidenciaM.titulo;
+                    DescripcionTextBox.Text = incidenciaM.descripcion;
+                    EstadoTextBox.Text = incidenciaM.estadoIncidencia;
+                    FechaDatePicker.SelectedDate = DateTime.Parse(incidenciaM.fechahora);
+                    AccesibilidadCheckBox.IsChecked = incidenciaM.accesibilidad;
+                    AccesibilidadCheckBox.UpdateLayout();
+                    LatitudTextBox.Text = incidenciaM.latitud.ToString();
+                    LongitudTextBox.Text = incidenciaM.longitud.ToString();
                 }
 
-                InitializeComponent();
+                try
+                {
+                    if (!string.IsNullOrEmpty(incidenciaM.foto))
+                    {
+                        byte[] imageBytes = Convert.FromBase64String(incidenciaM.foto);
+                        BitmapImage bitmapImage = new BitmapImage();
+                        bitmapImage.BeginInit();
+                        bitmapImage.StreamSource = new System.IO.MemoryStream(imageBytes);
+                        bitmapImage.EndInit();
+                        FotoImage.Source = bitmapImage;
+                    }
+                } catch (System.FormatException ex)
+                {
+                    Console.Write($"Error loading image: {ex.Message}");
+                }
+
             }
         }
-
 
         private void CloseButton_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
@@ -80,7 +98,7 @@ namespace WpfAppLogin
 
             if (confirmResult == MessageBoxResult.Yes)
             {
-                TokenManager.DeleteItems(incidenciaM.id_incidencia, urlIncidencia);
+                TokenManager.DeleteItems(incidenciaM.id, urlIncidencia);
             }
         }
 
@@ -89,16 +107,26 @@ namespace WpfAppLogin
             string tituloI = TituloTextBox.Text;
             string descripcionI = DescripcionTextBox.Text;
             string estadoI = EstadoTextBox.Text;
-            string duracionI = DuracionTextBox.Text;
             string fechaI = FechaDatePicker.SelectedDate?.ToString("yyyy-MM-ddTHH:mm:ss");
-            string puntoI = PuntoTextBox.Text;
+            bool accesibilidadI = AccesibilidadCheckBox.IsChecked ?? false;
+            string accesibilidadValue = accesibilidadI ? "true" : "false";
+            double  longitud = double.Parse(LongitudTextBox.Text);
+            double latitud = double.Parse(LatitudTextBox.Text);
 
             string jsonBody = $"{{\"titulo\":\"{tituloI}\",\"descripcion\":\"{descripcionI}\"," +
-                $"\"estadoIncidencia\":" + $"\"{estadoI}\",\"fechahora\":\"{fechaI}\"," +
-                $"\"duracion\":\"{duracionI}\"," + $"\"id_cliente\":\"{TokenManager.IdClient}\"," +
-                $" \"id_punto\":\"{puntoI}\"}}";
+            $"\"estadoIncidencia\":\"{estadoI}\",\"fechahora\":\"{fechaI}\"," +
+            $"\"accesibilidad\":{accesibilidadValue}," +
+            $"\"foto\":\"{incidenciaM.foto}\"," +
+            $"\"id_cliente\":\"{incidenciaM.id_cliente}\"," +
+            $"\"latitud\":{latitud},\"longitud\":{longitud}}}";
 
-            TokenManager.PutItems(urlIncidencia, jsonBody, incidenciaM.id_incidencia);
+            TokenManager.PutItems(urlIncidencia, jsonBody, incidenciaM.id);
+        }
+
+        private void ValidarIncidencia_Click(object sender, RoutedEventArgs e)
+        {
+            Validar validarI = new Validar(urlIncidencia, incidenciaM);
+            validarI.ShowDialog();
         }
     }
 }

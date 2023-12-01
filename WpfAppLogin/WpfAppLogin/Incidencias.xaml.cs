@@ -1,31 +1,31 @@
 ﻿using Newtonsoft.Json;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
 using System.Windows.Input;
 
 namespace WpfAppLogin
 {
-    /// <summary>
-    /// Lógica de interacción para Incidencias.xaml
-    /// </summary>
     public partial class Incidencias : UserControl
     {
         string urlIncidencias = "/incidencias/";
 
-        List<Incidencia> incidencias = new List<Incidencia>();
-
         public class Incidencia
         {
-            public int id_incidencia { get; set; }
+            public int id { get; set; }
             public string titulo { get; set; }
             public string descripcion { get; set; }
-            public string estadoIncidencia { get; set; }
             public string fechahora { get; set; }
-            public string duracion { get; set; }
-            public string id_cliente { get; set; }
-            public string id_punto { get; set; }
+            public bool accesibilidad { get; set; }
+            public string estadoIncidencia { get; set; }
+            public string foto { get; set; }
+            public int id_cliente { get; set; }
+            public double longitud { get; set; }
+            public double latitud { get; set; }
+
 
             /*public List<Incidencia> GetIncidencias() {
 
@@ -44,28 +44,16 @@ namespace WpfAppLogin
             cargarData();
         }
 
-
         private void cargarData()
         {
             List<Incidencia> newIncidencias = JsonConvert.DeserializeObject<List<Incidencia>>(TokenManager.GetItems(urlIncidencias));
 
-            dataGrid.Items.Clear();
+            dataGrid.ItemsSource = newIncidencias;
 
-            foreach (var incidencia in newIncidencias)
+            if (dataGrid != null && dataGrid.ItemsSource != null)
             {
-                dataGrid.Items.Add(new Incidencia
-                {
-                    id_incidencia = incidencia.id_incidencia,
-                    titulo = incidencia.titulo,
-                    descripcion = incidencia.descripcion,
-                    estadoIncidencia = incidencia.estadoIncidencia,
-                    fechahora = incidencia.fechahora,
-                    duracion = incidencia.duracion,
-                    id_cliente = incidencia.id_cliente,
-                    id_punto = incidencia.id_punto
-                });
-
-                incidencias.Add(incidencia);
+                ICollectionView dataView = CollectionViewSource.GetDefaultView(dataGrid.ItemsSource);
+                dataView.SortDescriptions.Add(new SortDescription("estadoIncidencia", ListSortDirection.Ascending));
             }
         }
 
