@@ -1,17 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Globalization;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using static WpfAppLogin.Incidencias;
 
 namespace WpfAppLogin
@@ -20,6 +11,8 @@ namespace WpfAppLogin
     {
         string urlIncidencia;
         Incidencia incidenciaM;
+        private string urlIncidencias;
+
         public ModificarIncidencia(string url, Incidencia incidencia)
         {
             if (incidencia == null)
@@ -54,8 +47,8 @@ namespace WpfAppLogin
                     FechaDatePicker.SelectedDate = DateTime.Parse(incidenciaM.fechahora);
                     AccesibilidadCheckBox.IsChecked = incidenciaM.accesibilidad;
                     AccesibilidadCheckBox.UpdateLayout();
-                    LatitudTextBox.Text = incidenciaM.latitud.ToString();
-                    LongitudTextBox.Text = incidenciaM.longitud.ToString();
+                    LatitudTextBox.Text = incidenciaM.latitud.ToString().Replace(',', '.');
+                    LongitudTextBox.Text = incidenciaM.longitud.ToString().Replace(',', '.');
                 }
 
                 try
@@ -69,11 +62,13 @@ namespace WpfAppLogin
                         bitmapImage.EndInit();
                         FotoImage.Source = bitmapImage;
                     }
-                } catch (System.FormatException ex)
+                }
+                catch (System.FormatException ex)
                 {
                     Console.Write($"Error loading image: {ex.Message}");
                 }
 
+                Console.WriteLine("Modificar");
             }
         }
 
@@ -110,15 +105,16 @@ namespace WpfAppLogin
             string fechaI = FechaDatePicker.SelectedDate?.ToString("yyyy-MM-ddTHH:mm:ss");
             bool accesibilidadI = AccesibilidadCheckBox.IsChecked ?? false;
             string accesibilidadValue = accesibilidadI ? "true" : "false";
-            double  longitud = double.Parse(LongitudTextBox.Text);
-            double latitud = double.Parse(LatitudTextBox.Text);
 
             string jsonBody = $"{{\"titulo\":\"{tituloI}\",\"descripcion\":\"{descripcionI}\"," +
             $"\"estadoIncidencia\":\"{estadoI}\",\"fechahora\":\"{fechaI}\"," +
             $"\"accesibilidad\":{accesibilidadValue}," +
             $"\"foto\":\"{incidenciaM.foto}\"," +
             $"\"id_cliente\":\"{incidenciaM.id_cliente}\"," +
-            $"\"latitud\":{latitud},\"longitud\":{longitud}}}";
+            $"\"id\":\"{incidenciaM.id}\"," +
+            $"\"latitud\":{LatitudTextBox.Text.Replace(',', '.')},\"longitud\":{LongitudTextBox.Text.Replace(',', '.')}}}";
+
+            MessageBox.Show(jsonBody.ToString());
 
             TokenManager.PutItems(urlIncidencia, jsonBody, incidenciaM.id);
         }

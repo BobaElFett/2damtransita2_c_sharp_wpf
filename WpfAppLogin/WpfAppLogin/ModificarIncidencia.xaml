@@ -124,14 +124,6 @@
                          TextWrapping="Wrap"
                          MaxLines="3"
                         RenderTransformOrigin="0.5,0.5">
-                        <TextBox.RenderTransform>
-                            <TransformGroup>
-                                <ScaleTransform/>
-                                <SkewTransform/>
-                                <RotateTransform Angle="-0.407"/>
-                                <TranslateTransform/>
-                            </TransformGroup>
-                        </TextBox.RenderTransform>
                     </TextBox>
                 </StackPanel>
 

@@ -10,9 +10,18 @@
     <Grid>
         <Border Background="#323232" CornerRadius="0" ClipToBounds="True">
             <Grid>
-                <StackPanel VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,0,5,0">
+                <StackPanel Margin="10 5 0 0" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top">
+                    <Label Content="Filtrar por:" VerticalAlignment="Center" Margin="5" Background="AliceBlue" BorderBrush="AliceBlue" BorderThickness="3"/>
+                    <ComboBox x:Name="cmbFiltro" Width="150" Margin="5" Background="AliceBlue" BorderBrush="AliceBlue" BorderThickness="3">
+                        <ComboBoxItem Content="ACTIVO"/>
+                        <ComboBoxItem Content="BANEADO"/>
+                    </ComboBox>
+                    <Button Content="Filtrar" Width="80" Margin="5" materialDesign:ButtonAssist.CornerRadius="2" Click="filtrar"/>
+                </StackPanel>
+
+                <StackPanel VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,0,0,0">
                     <Button Background="#ffffff" Foreground="#9f77df" FontSize="18" materialDesign:ButtonAssist.CornerRadius="10" 
-                            Height="40" Width="100" Margin="0,5,5,0" Opacity="0.9" >
+                            Height="40" Width="100" Margin="0,5,12,0" Opacity="0.9" Click="AñadirClientes_Click">
                         <StackPanel Orientation="Horizontal">
                             <materialDesign:PackIcon Kind="Add" Height="35" Width="35" Margin="0,0,0,0"/>
                         </StackPanel>
@@ -21,9 +30,18 @@
 
                 <StackPanel VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,0,110,0">
                     <Button Background="#ffffff" Foreground="#9f77df" FontSize="18" materialDesign:ButtonAssist.CornerRadius="10" 
-                            Height="40" Width="100" Margin="0,5,5,0" Opacity="0.9">
+                            Height="40" Width="100" Margin="0,5,7.6,0" Opacity="0.9">
                         <StackPanel Orientation="Horizontal">
                             <materialDesign:PackIcon Kind="Reload" Height="35" Width="35" Margin="0,0,0,0"/>
+                        </StackPanel>
+                    </Button>
+                </StackPanel>
+
+                <StackPanel Margin="0 0 216 0" VerticalAlignment="Top">
+                    <Button VerticalAlignment="Bottom" HorizontalAlignment="Right" Background="#ffffff" Foreground="#9f77df" FontSize="18" materialDesign:ButtonAssist.CornerRadius="10" 
+                                Height="40" Width="100" Margin="0,5,7.6,0" Opacity="0.9" Click="InformeCliente_Click">
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon Kind="ClipboardAdd" Margin="0,0,0,0" Height="35" Width="35"/>
                         </StackPanel>
                     </Button>
                 </StackPanel>
@@ -37,7 +55,6 @@
                         <DataGridTextColumn Header="Nombre" Binding="{Binding nombre}" />
                         <DataGridTextColumn Header="Apellidos" Binding="{Binding apellidos}" />
                         <DataGridTextColumn Header="Estado" Binding="{Binding estado}" />
-                        <DataGridTextColumn Header="Password" Binding="{Binding password}" />
                     </DataGrid.Columns>
                 </DataGrid>
             </Grid>

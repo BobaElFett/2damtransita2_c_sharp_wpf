@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using Newtonsoft.Json;
+using System;
+using System.IO;
+using System.Net;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
-using Newtonsoft.Json;
-using System.Net.Http;
-using System.Net;
-using System.IO;
 using System.Windows;
 
 namespace WpfAppLogin
@@ -42,7 +40,7 @@ namespace WpfAppLogin
                     var content = new StringContent(JsonConvert.SerializeObject(loginRequest), Encoding.UTF8, "application/json");
                     var response = client.PostAsync(UrlHost + loginUrl, content).Result;
 
-                    // MessageBox.Show(response.ToString());
+                    //MessageBox.Show(response.ToString());
 
                     if (response.IsSuccessStatusCode)
                     {
@@ -77,7 +75,6 @@ namespace WpfAppLogin
 
         public static string GetItems(String url)
         {
-
             var request = (HttpWebRequest)WebRequest.Create(UrlHost + url);
             request.Method = "GET";
             request.ContentType = "application/json";
@@ -93,7 +90,6 @@ namespace WpfAppLogin
                         using (StreamReader objReader = new StreamReader(strReader))
                         {
                             string responseBody = objReader.ReadToEnd();
-                            //MessageBox.Show(responseBody.ToString());
                             return responseBody;
                         }
                     }
@@ -203,5 +199,81 @@ namespace WpfAppLogin
             }
         }
 
+        public static void SignUpItems(string cadenajson)
+        {
+            var request = (HttpWebRequest)WebRequest.Create(UrlHost + "/api/auth/signup");
+            request.Method = "POST";
+            request.ContentType = "application/json";
+            request.Accept = "application/json";
+
+            try
+            {
+                using (StreamWriter requestWriter = new StreamWriter(request.GetRequestStream()))
+                {
+                    requestWriter.Write(cadenajson);
+                    requestWriter.Flush();
+                    requestWriter.Close();
+                }
+
+                using (WebResponse response = request.GetResponse())
+                using (Stream responseStream = response.GetResponseStream())
+                using (StreamReader reader = new StreamReader(responseStream))
+                {
+                    string responseText = reader.ReadToEnd();
+                    string mensaje = "Añadido con éxito";
+                    string titulo = "Éxito";
+                    MessageBox.Show(mensaje, titulo, MessageBoxButton.OK, MessageBoxImage.Information);
+                    Console.WriteLine("Añadido con éxito.");
+                }
+            }
+            catch (WebException ex)
+            {
+                if (ex.Response != null)
+                {
+                    using (var errorResponse = (HttpWebResponse)ex.Response)
+                    using (var reader = new StreamReader(errorResponse.GetResponseStream()))
+                    {
+                        string errorText = reader.ReadToEnd();
+                        Console.WriteLine("Error: " + errorText);
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("Falla: " + ex.Message);
+                }
+            }
+        }
+
+
+        /*
+        public static void SignUpItems(string cadenajson)
+        {
+            var request = (HttpWebRequest)WebRequest.Create(UrlHost + "api/auth/signup");
+            request.Method = "POST";
+            request.ContentType = "application/json";
+            request.Accept = "application/json";
+            //request.Headers.Add("Authorization", "Bearer " + TokenManager.AccessToken);
+
+            try
+            {
+                using (Stream requestStream = request.GetRequestStream())
+                {
+                    byte[] data = Encoding.UTF8.GetBytes(cadenajson);
+                    requestStream.Write(data, 0, data.Length);
+                }
+
+                using (WebResponse response = request.GetResponse())
+                {
+                    string mensaje = "Añadido con éxito";
+                    string titulo = "Exito";
+                    MessageBox.Show(mensaje, titulo, MessageBoxButton.OK, MessageBoxImage.Information);
+                    Console.WriteLine("añadido con éxito.");
+                }
+            }
+            catch (WebException ex)
+            {
+                Console.WriteLine("Falla: " + ex.Message);
+            }
+        }*/
     }
 }

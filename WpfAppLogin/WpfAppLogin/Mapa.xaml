@@ -3,11 +3,81 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:map="clr-namespace:MapControl;assembly=MapControl.WPF"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:local="clr-namespace:WpfAppLogin"
-             mc:Ignorable="d" 
+             mc:Ignorable="d"
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-        <WebBrowser x:Name="mapBrowser" Height="450" VerticalAlignment="Top" Margin="0,0,0,0"/>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="12*"/>
+            <ColumnDefinition Width="88*"/>
+        </Grid.ColumnDefinitions>
+
+        <Border Grid.Column="0">
+            <Grid>
+                <StackPanel Orientation="Vertical" HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="0 0 0 0">
+                    <Label Content="Filtrar por:" VerticalAlignment="Center" Margin="5" Background="AliceBlue" BorderBrush="AliceBlue" BorderThickness="3"/>
+                    <ComboBox x:Name="cmbFiltro" Width="150" Margin="5" Background="AliceBlue" BorderBrush="AliceBlue" BorderThickness="3" SelectionChanged="cmbFiltro_SelectionChanged">
+                        <ComboBoxItem Content="Titulo"/>
+                        <ComboBoxItem Content="Estado"/>
+                        <ComboBoxItem Content="Accesibilidad"/>
+                    </ComboBox>
+
+                    <StackPanel x:Name="stackTitulo" Orientation="Horizontal" Visibility="Collapsed" HorizontalAlignment="Center" Margin="5">
+                        <TextBox x:Name="FiltroTitulo" Width="150" Margin="5" Background="AliceBlue" BorderBrush="AliceBlue" BorderThickness="3"/>
+                    </StackPanel>
+
+                    <StackPanel x:Name="stackEstado" Orientation="Horizontal" Visibility="Collapsed" HorizontalAlignment="Center" Margin="5">
+                        <ComboBox x:Name="FiltroEstado" Width="150" Margin="5" Background="AliceBlue" BorderBrush="AliceBlue" BorderThickness="3">
+                            <ComboBoxItem Content="ABIERTA"/>
+                            <ComboBoxItem Content="ACEPTADA"/>
+                            <ComboBoxItem Content="RECHAZADA"/>
+                            <ComboBoxItem Content="CERRADA"/>
+                        </ComboBox>
+                    </StackPanel>
+
+                    <StackPanel x:Name="stackAcce" Orientation="Horizontal" Visibility="Collapsed" HorizontalAlignment="Center" Margin="5">
+                        <ComboBox x:Name="FiltroAcce" Width="150" Margin="5" Background="AliceBlue" BorderBrush="AliceBlue" BorderThickness="3">
+                            <ComboBoxItem Content="ACCESIBLE"/>
+                            <ComboBoxItem Content="NO ACCESIBLE"/>
+                        </ComboBox>
+                    </StackPanel>
+
+                    <Button Content="Filtrar" Width="80" Margin="5" Click="filtrar"/>
+                </StackPanel>
+
+                <StackPanel Orientation="Vertical" HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="0 140 0 0">
+                    <DataGrid x:Name="gridIncidencias" AutoGenerateColumns="False" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                          CanUserAddRows="False" IsReadOnly="True" SelectionMode="Single" Margin="5,50,5,5" Height="622"
+                          BorderBrush="#323232" BorderThickness="2" >   
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Título" Binding="{Binding titulo}" />
+                        </DataGrid.Columns>
+                    </DataGrid>
+
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <Border Grid.Column="1">
+            <Grid>
+                <map:Map            
+            x:Name="MapaI"
+            ZoomLevel="7"
+            MinZoomLevel="14"
+            >
+                    <map:Map.Center>
+                        <map:Location Latitude="38.5080" Longitude="-0.2286"/>
+                    </map:Map.Center>
+
+                    <map:MapTileLayer
+                x:Name="OpenStreetMap"
+                TileSource="https://tile.openstreetmap.org/{z}/{x}/{y}.png"
+                SourceName="OpenStreetMap"
+                Description="© [OpenStreetMap contributors](http://www.openstreetmap.org/copyright)"/>
+                </map:Map>
+            </Grid>
+        </Border>
     </Grid>
 </UserControl>
-

@@ -2,7 +2,7 @@
 using System.Windows.Controls;
 using System.Windows.Input;
 
-namespace WpfAppLogin 
+namespace WpfAppLogin
 {
     public partial class MainWindow : Window
     {
@@ -30,7 +30,6 @@ namespace WpfAppLogin
             if (!string.IsNullOrEmpty(accessToken))
             {
                 TokenManager.AccessToken = accessToken;
-                //MessageBoxResult messageBoxResult = MessageBox.Show(accessToken);
 
                 HomeWindow homeForm = new HomeWindow();
                 this.Hide();
@@ -52,12 +51,6 @@ namespace WpfAppLogin
 
         private void CloseButton_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
-
-            /*foreach (Window window in Application.Current.Windows)
-            {
-                window.Close();
-            }*/
-
             Application.Current.Shutdown();
         }
     }

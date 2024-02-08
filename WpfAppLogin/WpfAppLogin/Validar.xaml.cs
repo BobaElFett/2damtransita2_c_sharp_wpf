@@ -1,23 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using static WpfAppLogin.Incidencias;
 
 namespace WpfAppLogin
 {
-    /// <summary>
-    /// Lógica de interacción para Window1.xaml
-    /// </summary>
     public partial class Validar : Window
     {
         string urlIncidencia;
@@ -57,22 +44,38 @@ namespace WpfAppLogin
 
         private void ValidarIncidencia_Click(object sender, RoutedEventArgs e)
         {
+            string accesibilidadValue = incidenciaM.accesibilidad ? "true" : "false";
+
             string jsonBody = $"{{\"titulo\":\"{incidenciaM.titulo}\",\"descripcion\":\"{incidenciaM.descripcion}\"," +
-            $"\"estado\":\"{"ACEPTADA"}\",\"fechahora\":\"{incidenciaM.fechahora}\"," +
-            $"\"id_cliente\":\"{incidenciaM.id_cliente}\"," + $"\"accesibilidad\":{incidenciaM.accesibilidad}," +
-            $"\"longitud\":{incidenciaM.longitud},\"latitud\":{incidenciaM.latitud},";
+                $"\"estadoIncidencia\":\"{"ACEPTADA"}\",\"fechahora\":\"{incidenciaM.fechahora}\"," +
+                $"\"accesibilidad\":{accesibilidadValue}," +
+                $"\"foto\":\"{incidenciaM.foto}\"," +
+                $"\"id_cliente\":\"{incidenciaM.id_cliente}\"," +
+                $"\"id\":\"{incidenciaM.id}\"," +
+                $"\"longitud\":{incidenciaM.longitud},\"latitud\":{incidenciaM.latitud}}}";
+
+            Console.WriteLine(urlIncidencia + " " + jsonBody + " " + incidenciaM.id);
 
             TokenManager.PutItems(urlIncidencia, jsonBody, incidenciaM.id);
+
+            Close();
         }
 
         private void RechazarIncidencia_Click(object sender, RoutedEventArgs e)
         {
+            string accesibilidadValue = incidenciaM.accesibilidad ? "true" : "false";
+
             string jsonBody = $"{{\"titulo\":\"{incidenciaM.titulo}\",\"descripcion\":\"{incidenciaM.descripcion}\"," +
-            $"\"estado\":\"{"RECHAZADA"}\",\"fechahora\":\"{incidenciaM.fechahora}\"," +
-            $"\"id_cliente\":\"{incidenciaM.id_cliente}\"," + $"\"accesibilidad\":{incidenciaM.accesibilidad}," +
-            $"\"longitud\":{incidenciaM.longitud},\"latitud\":{incidenciaM.latitud},";
+                $"\"estadoIncidencia\":\"{"RECHAZADA"}\",\"fechahora\":\"{incidenciaM.fechahora}\"," +
+                $"\"accesibilidad\":{accesibilidadValue}," +
+                $"\"foto\":\"{incidenciaM.foto}\"," +
+                $"\"id_cliente\":\"{incidenciaM.id_cliente}\"," +
+                $"\"id\":\"{incidenciaM.id}\"," +
+                $"\"longitud\":{incidenciaM.longitud},\"latitud\":{incidenciaM.latitud}}}";
 
             TokenManager.PutItems(urlIncidencia, jsonBody, incidenciaM.id);
+
+            Close();
         }
     }
 }

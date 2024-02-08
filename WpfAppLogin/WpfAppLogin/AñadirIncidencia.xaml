@@ -4,7 +4,7 @@
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         FontSize="18" FontFamily="{DynamicResource MaterialDesignFont}" ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen" WindowStyle="None" AllowsTransparency="True" Background="Transparent" 
-        Title="AñadirIncidencia" Height="610" Width="400">
+        Title="AñadirIncidencia" Height="660" Width="400">
 
     <Grid>
         <Border Background="#323232" CornerRadius="10 10 10 10" ClipToBounds="True" MouseDown="Border_MouseDown" BorderBrush="AliceBlue" BorderThickness="2">
@@ -20,7 +20,7 @@
                         </TransformGroup>
                     </Ellipse.RenderTransform>
                 </Ellipse>
-                
+
                 <materialDesign:PackIcon Kind="Close" VerticalAlignment="Top" Width="50" Height="40" HorizontalAlignment="Right" Margin="0,10,10.4,0" Opacity="1" 
                     PreviewMouseDown="CloseButton_PreviewMouseDown" Background="Transparent" Grid.Column="1" Grid.ColumnSpan="2">
                     <materialDesign:PackIcon.Style>
@@ -49,18 +49,18 @@
                         </TextBox.RenderTransform>
                     </TextBox>
 
-                    <TextBox x:Name="EstadoTextBox" BorderThickness="0 0 0 1.5" BorderBrush="#C5C8CC" 
-                             materialDesign:HintAssist.FloatingOffset="0,-20" materialDesign:HintAssist.Hint="Estado" 
-                             Margin="10 27 10 0" Style="{StaticResource MaterialDesignFloatingHintTextBox}" RenderTransformOrigin="0.5,0.5">
-                        <TextBox.RenderTransform>
-                            <TransformGroup>
-                                <ScaleTransform/>
-                                <SkewTransform/>
-                                <RotateTransform Angle="-0.407"/>
-                                <TranslateTransform/>
-                            </TransformGroup>
-                        </TextBox.RenderTransform>
-                    </TextBox>
+                    <ComboBox x:Name="EstadoComboBox" 
+                        BorderThickness="0 0 0 1.5" 
+                        BorderBrush="#C5C8CC" 
+                        materialDesign:HintAssist.FloatingOffset="0,-20" 
+                        materialDesign:HintAssist.Hint="Estado" 
+                        Margin="10 27 10 0" 
+                        Style="{StaticResource MaterialDesignFloatingHintComboBox}" 
+                        RenderTransformOrigin="0.5,0.5">
+                        <ComboBoxItem>ABIERTA</ComboBoxItem>
+                        <ComboBoxItem>ACEPTADA</ComboBoxItem>
+                    </ComboBox>
+
 
                     <DatePicker x:Name="FechaDatePicker" Margin="10 27 10 0"
                                materialDesign:HintAssist.FloatingOffset="0,-20"
@@ -68,9 +68,11 @@
                                Style="{StaticResource MaterialDesignFloatingHintDatePicker}"
                                 Foreground="#323232"/>
 
-                    <TextBox x:Name="DuracionTextBox" BorderThickness="0 0 0 1.5" BorderBrush="#C5C8CC" 
-                             materialDesign:HintAssist.FloatingOffset="0,-20" materialDesign:HintAssist.Hint="Duracion" 
-                             Margin="10 27 10 0" Style="{StaticResource MaterialDesignFloatingHintTextBox}" RenderTransformOrigin="0.5,0.5">
+                    <CheckBox x:Name="AccesibilidadCheckBox" Content="Accesibilidad" Margin="10 27 10 0" Foreground="#323232" VerticalAlignment="Top" />
+
+                    <TextBox x:Name="LatitudTextBox" BorderThickness="0 0 0 1.5" BorderBrush="#C5C8CC" 
+                             materialDesign:HintAssist.FloatingOffset="0,-20" materialDesign:HintAssist.Hint="Latitud" 
+                             Margin="10 17 10 0" Style="{StaticResource MaterialDesignFloatingHintTextBox}" RenderTransformOrigin="0.5,0.5">
                         <TextBox.RenderTransform>
                             <TransformGroup>
                                 <ScaleTransform/>
@@ -81,8 +83,8 @@
                         </TextBox.RenderTransform>
                     </TextBox>
 
-                    <TextBox x:Name="PuntoTextBox" BorderThickness="0 0 0 1.5" BorderBrush="#C5C8CC" 
-                             materialDesign:HintAssist.FloatingOffset="0,-20" materialDesign:HintAssist.Hint="Punto" 
+                    <TextBox x:Name="LongitudTextBox" BorderThickness="0 0 0 1.5" BorderBrush="#C5C8CC" 
+                             materialDesign:HintAssist.FloatingOffset="0,-20" materialDesign:HintAssist.Hint="Longitud" 
                              Margin="10 27 10 0" Style="{StaticResource MaterialDesignFloatingHintTextBox}" RenderTransformOrigin="0.5,0.5">
                         <TextBox.RenderTransform>
                             <TransformGroup>
@@ -106,18 +108,9 @@
                          TextWrapping="Wrap"
                          MaxLines="3"
                         RenderTransformOrigin="0.5,0.5">
-                        <TextBox.RenderTransform>
-                            <TransformGroup>
-                                <ScaleTransform/>
-                                <SkewTransform/>
-                                <RotateTransform Angle="-0.407"/>
-                                <TranslateTransform/>
-                            </TransformGroup>
-                        </TextBox.RenderTransform>
                     </TextBox>
-
-
                 </StackPanel>
+
 
 
                 <Button VerticalAlignment="Bottom" HorizontalAlignment="Center" Background="#ffffff" Foreground="#9f77df" FontSize="18" materialDesign:ButtonAssist.CornerRadius="10" 
@@ -126,7 +119,7 @@
                         <materialDesign:PackIcon Kind="Add" Margin="0,0,0,0" Height="40" Width="40"/>
                     </StackPanel>
                 </Button>
-            </Grid> 
+            </Grid>
         </Border>
     </Grid>
 </Window>
